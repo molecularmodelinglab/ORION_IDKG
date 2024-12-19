@@ -18,6 +18,7 @@ HETIO = 'Hetio'
 HGNC = 'HGNC'
 HMDB = 'HMDB'
 HUMAN_GOA = 'HumanGOA'
+HVPPI = 'HVPPI'
 INTACT = 'IntAct'
 LINCS = 'LINCS'
 LITCOIN = 'LitCoin'
@@ -27,6 +28,7 @@ KINACE = 'KinAce'
 MOLEPRO = 'MolePro'
 MONARCH_KG = 'MonarchKG'
 MONDO_PROPS = 'MONDOProps'
+NPASS = 'NPASS'
 ONTOLOGICAL_HIERARCHY = 'OntologicalHierarchy'
 PANTHER = 'PANTHER'
 PHAROS = 'PHAROS'
@@ -34,6 +36,7 @@ PLANT_GOA = 'PlantGOA'
 REACTOME = 'Reactome'
 SCENT = 'Scent'
 SGD = 'SGD'
+SMACC = 'SMACC'
 HUMAN_STRING = 'STRING-DB-Human'
 TEXT_MINING_KP = 'textminingkp'
 UBERGRAPH_NONREDUNDANT = 'UbergraphNonredundant'
@@ -67,6 +70,7 @@ SOURCE_DATA_LOADER_CLASS_IMPORTS = {
     HMDB: ("parsers.hmdb.src.loadHMDB", "HMDBLoader"),
     HUMAN_GOA: ("parsers.GOA.src.loadGOA", "HumanGOALoader"),
     HUMAN_STRING: ("parsers.STRING.src.loadSTRINGDB", "HumanSTRINGDBLoader"),
+    HVPPI: ("parsers.HVPPI.src.loadHVPPI", "HVPPILoader"),
     INTACT: ("parsers.IntAct.src.loadIA", "IALoader"),
     LINCS: ("parsers.LINCS.src.loadLINCS", "LINCSLoader"),
     LITCOIN: ("parsers.LitCoin.src.loadLitCoin", "LitCoinLoader"),
@@ -76,6 +80,7 @@ SOURCE_DATA_LOADER_CLASS_IMPORTS = {
     MOLEPRO: ("parsers.molepro.src.loadMolePro", "MoleProLoader"),
     MONARCH_KG: ("parsers.monarchkg.src.loadMonarchKG", "MonarchKGLoader"),
     MONDO_PROPS: ("parsers.MONDOProperties.src.loadMP", "MPLoader"),
+    NPASS: ("parsers.NPASS.src.loadNPASS", "NPASSLoader"),
     ONTOLOGICAL_HIERARCHY: ("parsers.UberGraph.src.loadUG", "OHLoader"),
     PANTHER: ("parsers.panther.src.loadPanther", "PLoader"),
     PHAROS: ("parsers.PHAROS.src.loadPHAROS", "PHAROSLoader"),
@@ -83,6 +88,7 @@ SOURCE_DATA_LOADER_CLASS_IMPORTS = {
     REACTOME: ("parsers.Reactome.src.loadReactome", "ReactomeLoader"),
     SCENT: ("parsers.scent.src.loadScent", "ScentLoader"),
     SGD: ("parsers.SGD.src.loadSGD", "SGDLoader"),
+    SMACC: ("parsers.SMACC.src.loadSMACC", "SMACCLoader"),
     TEXT_MINING_KP: ("parsers.textminingkp.src.loadTMKP", "TMKPLoader"),
     UBERGRAPH_NONREDUNDANT: ("parsers.UberGraph.src.loadUG", "UGLoader"),
     UBERGRAPH_REDUNDANT: ("parsers.UberGraph.src.loadUG", "UGRedundantLoader"),
