@@ -3,12 +3,20 @@ import importlib
 
 BINDING_DB = 'BINDING-DB'
 CAM_KP = 'CAM-KP'
+CCIDB = 'CCIDB'
+CEBS = 'CEBS'
 CHEBI_PROPERTIES = 'CHEBIProps'
 CLINICAL_TRIALS_KP = 'ClinicalTrialsKP'
+CLINGEN_DOSAGE_SENSITIVITY = 'ClinGenDosageSensitivity'
+CLINGEN_GENE_DISEASE_VALIDITY = 'ClinGenGeneDiseaseValidity'
+CLINGEN_VARIANT_PATHOGENICITY = 'ClinGenVariantPathogenicity'
 CORD19 = 'Cord19'
+COHD = 'COHD'
 CTD = 'CTD'
 DRUG_CENTRAL = 'DrugCentral'
 DRUGMECHDB = 'DrugMechDB'
+EHRMAYTREAT = 'EHRMayTreat'
+EHRCLINICALCONNECTIONS = 'EHRClinicalConnections'
 # FOODB = 'FooDB' # this is on hold, data needs review after latest release of data.
 GENOME_ALLIANCE_ORTHOLOGS = 'GenomeAllianceOrthologs'
 GTEX = 'GTEx'
@@ -24,12 +32,14 @@ HVPPI = 'HVPPI'
 INTACT = 'IntAct'
 LINCS = 'LINCS'
 LITCOIN = 'LitCoin'
-LITCOIN_SAPBERT = 'LitCoinSapBERT'
+LITCOIN_W_BAGEL_SERVICE = 'LitCoinBagelService'
 LITCOIN_ENTITY_EXTRACTOR = 'LitCoinEntityExtractor'
 KINACE = 'KinAce'
 MOLEPRO = 'MolePro'
+METABOLOMICS_WORKBENCH = 'MetabolomicsWorkbench'
 MONARCH_KG = 'MonarchKG'
 MONDO_PROPS = 'MONDOProps'
+OHD_CAROLINA = 'OHD-Carolina'
 NPASS = 'NPASS'
 ONTOLOGICAL_HIERARCHY = 'OntologicalHierarchy'
 PANTHER = 'PANTHER'
@@ -38,6 +48,7 @@ PLANT_GOA = 'PlantGOA'
 REACTOME = 'Reactome'
 SCENT = 'Scent'
 SGD = 'SGD'
+SIGNOR = 'SIGNOR'
 SMACC = 'SMACC'
 HUMAN_STRING = 'STRING-DB-Human'
 TEXT_MINING_KP = 'textminingkp'
@@ -57,9 +68,15 @@ RESOURCE_HOGS = [GTEX, GWAS_CATALOG, UNIREF, ONTOLOGICAL_HIERARCHY, UBERGRAPH_RE
 SOURCE_DATA_LOADER_CLASS_IMPORTS = {
     BINDING_DB: ("parsers.BINDING.src.loadBINDINGDB", "BINDINGDBLoader"),
     CAM_KP: ("parsers.camkp.src.loadCAMKP", "CAMKPLoader"),
+    CCIDB: ("parsers.CCIDB.src.loadCCIDB", "CCIDBLoader"),
+    CEBS: ("parsers.CEBS.src.loadCEBS", "CEBSLoader"),
     CHEBI_PROPERTIES: ("parsers.chebi.src.loadChebiProperties", "ChebiPropertiesLoader"),
     CLINICAL_TRIALS_KP: ("parsers.clinicaltrials.src.loadCTKP", "CTKPLoader"),
+    CLINGEN_DOSAGE_SENSITIVITY: ("parsers.ClinGenDosageSensitivity.src.loadClinGenDosageSensitivity", "ClinGenDosageSensitivityLoader"),
+    CLINGEN_GENE_DISEASE_VALIDITY: ("parsers.ClinGenGeneDiseaseValidity.src.loadClinGenGeneDiseaseValidity", "ClinGenGeneDiseaseValidityLoader"),
+    CLINGEN_VARIANT_PATHOGENICITY: ("parsers.ClinGenVariantPathogenicity.src.loadClinGenVariantPathogenicity", "ClinGenVariantPathogenicityLoader"),
     CORD19: ("parsers.cord19.src.loadCord19", "Cord19Loader"),
+    COHD: ("parsers.cohd.src.loadCOHD", "COHDLoader"),
     CTD: ("parsers.CTD.src.loadCTD", "CTDLoader"),
     DRUG_CENTRAL: ("parsers.drugcentral.src.loaddrugcentral", "DrugCentralLoader"),
     DRUGMECHDB: ("parsers.drugmechdb.src.loadDrugMechDB", "DrugMechDBLoader"),
@@ -78,12 +95,16 @@ SOURCE_DATA_LOADER_CLASS_IMPORTS = {
     INTACT: ("parsers.IntAct.src.loadIA", "IALoader"),
     LINCS: ("parsers.LINCS.src.loadLINCS", "LINCSLoader"),
     LITCOIN: ("parsers.LitCoin.src.loadLitCoin", "LitCoinLoader"),
-    LITCOIN_ENTITY_EXTRACTOR: ("parsers.LitCoin.src.loadLitCoin", "LitCoinEntityExtractorLoader"),
-    LITCOIN_SAPBERT: ("parsers.LitCoin.src.loadLitCoin", "LitCoinSapBERTLoader"),
+    LITCOIN_W_BAGEL_SERVICE: ("parsers.LitCoin.src.loadLitCoin", "LitCoinBagelServiceLoader"),
+    # LITCOIN_ENTITY_EXTRACTOR: ("parsers.LitCoin.src.loadLitCoin", "LitCoinEntityExtractorLoader"),
     KINACE: ("parsers.KinAce.src.loadKinAce", "KinAceLoader"),
+    EHRMAYTREAT: ("parsers.ehr.src.loadEHR", "EHRMayTreatLoader"),
+    EHRCLINICALCONNECTIONS: ("parsers.ehr.src.loadEHR", "EHRClinicalConnectionsLoader"),
+    METABOLOMICS_WORKBENCH: ("parsers.MetabolomicsWorkbench.src.loadMetabolomicsWorkbench", "MetabolomicsWorkbenchLoader"),
     MOLEPRO: ("parsers.molepro.src.loadMolePro", "MoleProLoader"),
     MONARCH_KG: ("parsers.monarchkg.src.loadMonarchKG", "MonarchKGLoader"),
     MONDO_PROPS: ("parsers.MONDOProperties.src.loadMP", "MPLoader"),
+    OHD_CAROLINA: ("parsers.ohd_carolina.src.loadOHD", "OHDLoader"),
     NPASS: ("parsers.NPASS.src.loadNPASS", "NPASSLoader"),
     ONTOLOGICAL_HIERARCHY: ("parsers.UberGraph.src.loadUG", "OHLoader"),
     PANTHER: ("parsers.panther.src.loadPanther", "PLoader"),
@@ -92,6 +113,7 @@ SOURCE_DATA_LOADER_CLASS_IMPORTS = {
     REACTOME: ("parsers.Reactome.src.loadReactome", "ReactomeLoader"),
     SCENT: ("parsers.scent.src.loadScent", "ScentLoader"),
     SGD: ("parsers.SGD.src.loadSGD", "SGDLoader"),
+    SIGNOR: ("parsers.SIGNOR.src.loadSIGNOR", "SIGNORLoader"),
     SMACC: ("parsers.SMACC.src.loadSMACC", "SMACCLoader"),
     TEXT_MINING_KP: ("parsers.textminingkp.src.loadTMKP", "TMKPLoader"),
     UBERGRAPH_NONREDUNDANT: ("parsers.UberGraph.src.loadUG", "UGLoader"),

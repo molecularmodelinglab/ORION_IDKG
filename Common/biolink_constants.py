@@ -45,7 +45,10 @@ SYMBOL = 'symbol'
 EDGE_ID = 'id'
 SUBJECT_ID = 'subject'
 OBJECT_ID = 'object'
+ORIGINAL_SUBJECT = 'original_subject'
+ORIGINAL_OBJECT = 'original_object'
 PREDICATE = 'predicate'
+ORIGINAL_PREDICATE = 'original_predicate'
 PRIMARY_KNOWLEDGE_SOURCE = 'primary_knowledge_source'
 AGGREGATOR_KNOWLEDGE_SOURCES = 'aggregator_knowledge_source'
 SUPPORTING_DATA_SOURCE = 'supporting_data_source'
@@ -55,11 +58,15 @@ AGENT_TYPE = 'agent_type'
 KNOWLEDGE_LEVEL = 'knowledge_level'
 MAX_RESEARCH_PHASE = 'max_research_phase'
 HAS_SUPPORTING_STUDY_RESULT = 'has_supporting_study_result'
+NEGATED = 'negated'
+LOG_ODDS_RATIO = 'log_odds_ratio'
+LOG_ODDS_RATIO_95_CI = 'log_odds_ratio_95_ci'
+TOTAL_SAMPLE_SIZE = 'total_sample_size'
 
 # enums for knowledge level
 KNOWLEDGE_ASSERTION = 'knowledge_assertion'
 LOGICAL_ENTAILMENT = 'logical_entailment'
-PREDICATION = 'prediction'
+PREDICTION = 'prediction'
 STATISTICAL_ASSOCIATION = 'statistical_association'
 OBSERVATION = 'observation'
 NOT_PROVIDED = 'not_provided'
@@ -92,18 +99,27 @@ ANATOMICAL_CONTEXT_QUALIFIER = 'anatomical_context_qualifier'
 CAUSAL_MECHANISM_QUALIFIER = 'causal_mechanism_qualifier'
 CONTEXT_QUALIFIER = 'context_qualifier'
 DERIVATIVE_QUALIFIER = 'derivative_qualifier'
+DISEASE_CONTEXT_QUALIFIER = 'disease_context_qualifier'
+FORM_OR_VARIANT_QUALIFIER = 'form_or_variant_qualifier'
 OBJECT_ASPECT_QUALIFIER = 'object_aspect_qualifier'
+OBJECT_CONTEXT_QUALIFIER = 'object_context_qualifier'
 OBJECT_DERIVATIVE_QUALIFIER = 'object_derivative_qualifier'
 OBJECT_DIRECTION_QUALIFIER = 'object_direction_qualifier'
 OBJECT_FORM_OR_VARIANT_QUALIFIER = 'object_form_or_variant_qualifier'
 OBJECT_PART_QUALIFIER = 'object_part_qualifier'
+OBJECT_SPECIALIZATION_QUALIFIER = 'object_specialization_qualifier'
+POPULATION_CONTEXT_QUALIFIER = 'population_context_qualifier'
 QUALIFIED_PREDICATE = 'qualified_predicate'
+SEX_QUALIFIER = 'sex_qualifier'
+SPECIALIZATION_QUALIFIER = 'specialization_qualifier'
 SPECIES_CONTEXT_QUALIFIER = 'species_context_qualifier'
 SUBJECT_ASPECT_QUALIFIER = 'subject_aspect_qualifier'
+SUBJECT_CONTEXT_QUALIFIER = 'subject_context_qualifier'
 SUBJECT_DERIVATIVE_QUALIFIER = 'subject_derivative_qualifier'
 SUBJECT_DIRECTION_QUALIFIER = 'subject_direction_qualifier'
 SUBJECT_FORM_OR_VARIANT_QUALIFIER = 'subject_form_or_variant_qualifier'
 SUBJECT_PART_QUALIFIER = 'subject_part_qualifier'
+SUBJECT_SPECIALIZATION_QUALIFIER = 'subject_specialization_qualifier'
 
 
 # this should probably be changed to the valid biolink synonym property but don't want to break downstream tools yet
@@ -153,6 +169,10 @@ BIOLINK_EDGE_PROPERTIES = [
     MECHANISM_OF_ACTION,
     MAX_RESEARCH_PHASE,
     HAS_SUPPORTING_STUDY_RESULT,
+    LOG_ODDS_RATIO,
+    LOG_ODDS_RATIO_95_CI,
+    TOTAL_SAMPLE_SIZE,
+    NEGATED,
     # qualifiers
     ANATOMICAL_CONTEXT_QUALIFIER,
     CAUSAL_MECHANISM_QUALIFIER,
@@ -164,12 +184,14 @@ BIOLINK_EDGE_PROPERTIES = [
     OBJECT_FORM_OR_VARIANT_QUALIFIER,
     OBJECT_PART_QUALIFIER,
     QUALIFIED_PREDICATE,
+    SEX_QUALIFIER,
     SPECIES_CONTEXT_QUALIFIER,
     SUBJECT_ASPECT_QUALIFIER,
     SUBJECT_DERIVATIVE_QUALIFIER,
     SUBJECT_DIRECTION_QUALIFIER,
     SUBJECT_FORM_OR_VARIANT_QUALIFIER,
     SUBJECT_PART_QUALIFIER,
+    POPULATION_CONTEXT_QUALIFIER
 ]
 
 REQUIRED_EDGE_PROPERTIES = [

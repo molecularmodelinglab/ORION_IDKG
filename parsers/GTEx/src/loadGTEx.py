@@ -14,10 +14,6 @@ class GTExLoader(SourceDataLoader):
 
     source_id = 'GTEx'
     provenance_id = 'infores:gtex'
-    description = "The Genotype-Tissue Expression (GTEx) portal provides open access to data on tissue-specific gene expression and regulation, derived from molecular assays (e.g., WGS, WES, RNA-Seq) on 54 non-diseased tissue sites across nearly 1000 individuals."
-    source_data_url = "https://storage.googleapis.com/gtex_analysis_v8/single_tissue_qtl_data/"
-    license = "https://www.gtexportal.org/home/documentationPage"
-    attribution = "https://www.gtexportal.org/home/documentationPage"
     parsing_version = '1.3'
     has_sequence_variants = True
 
@@ -120,10 +116,11 @@ class GTExLoader(SourceDataLoader):
     def get_data(self):
         # define the urls for the raw data archives and the location to download them to
         gtex_version = self.GTEX_VERSION
-        eqtl_url = f'https://storage.googleapis.com/gtex_analysis_v{gtex_version}/single_tissue_qtl_data/{self.eqtl_tar_file_name}'
+
+        eqtl_url = f'https://storage.googleapis.com/adult-gtex/bulk-qtl/v{gtex_version}/single-tissue-cis-qtl/{self.eqtl_tar_file_name}'
         eqtl_tar_download_path = os.path.join(self.data_path, self.eqtl_tar_file_name)
 
-        sqtl_url = f'https://storage.googleapis.com/gtex_analysis_v{gtex_version}/single_tissue_qtl_data/{self.sqtl_tar_file_name}'
+        sqtl_url = f'https://storage.googleapis.com/adult-gtex/bulk-qtl/v{gtex_version}/single-tissue-cis-qtl/{self.sqtl_tar_file_name}'
         sqtl_tar_download_path = os.path.join(self.data_path, self.sqtl_tar_file_name)
 
         self.logger.info(f'Downloading raw GTEx data files from {eqtl_url}.')
@@ -250,7 +247,7 @@ class GTExLoader(SourceDataLoader):
         edge_properties = {'expressed_in': [anatomy_id],
                            P_VALUE: [float(p_value)],
                            'slope': [float(slope)],
-                           KNOWLEDGE_LEVEL: PREDICATION,
+                           KNOWLEDGE_LEVEL: PREDICTION,
                            AGENT_TYPE: COMPUTATIONAL_MODEL}
 
         # write out the coalesced edge for the previous group
@@ -371,14 +368,3 @@ class GTExLoader(SourceDataLoader):
 
                 # write out the data to the output file
                 tar_file.write(data)
-
-
-# TODO use argparse to specify output location
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description="Retrieve, parse, and convert GTEx data to KGX files.")
-    parser.add_argument('-t', '--test_mode', action='store_true')
-    parser.add_argument('--data_dir', default='.')
-    args = parser.parse_args()
-
-    loader = GTExLoader(test_mode=args.test_mode)
-    loader.load(args.data_dir, 'gtex_kgx')

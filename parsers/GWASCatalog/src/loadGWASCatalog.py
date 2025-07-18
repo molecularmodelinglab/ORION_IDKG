@@ -34,10 +34,6 @@ class GWASCatalogLoader(SourceDataLoader):
 
     source_id = 'GWASCatalog'
     provenance_id = 'infores:gwas-catalog'
-    description = "The Genome-Wide Association Studies (GWAS) Catalog provides a curated, searchable, visualisable, and openly available database of single nucleotide polymorphism (SNP)-trait associations, derived from all GWAS publications identified by curators, who then extract the reported trait, significant SNP-trait associations, and sample metadata."
-    source_data_url = "https://www.ebi.ac.uk/gwas/docs/file-downloads"
-    license = "https://www.ebi.ac.uk/gwas/"
-    attribution = "https://www.ebi.ac.uk/gwas/"
     has_sequence_variants = True
 
     def __init__(self, test_mode: bool = False, source_data_dir: str = None):
@@ -128,7 +124,7 @@ class GWASCatalogLoader(SourceDataLoader):
                 if i == 1:
                     continue
 
-                if self.test_mode and i == 50:
+                if self.test_mode and i == 30:
                     break
 
                 # the total row count
@@ -359,21 +355,3 @@ class GWASCatalogLoader(SourceDataLoader):
                 for predicate, edge in predicate_dict.items():
                     self.final_edge_list.append(edge)
         return mergers
-
-if __name__ == '__main__':
-    # create a command line parser
-    ap = argparse.ArgumentParser(description='Load GWASCatalog data files and create KGX files.')
-
-    ap.add_argument('-r', '--data_dir', required=True, help='The location of the GWASCatalog data file')
-
-    # parse the arguments
-    args = vars(ap.parse_args())
-
-    # this is the base directory for data files and the resultant KGX files.
-    data_dir: str = args['data_dir']
-
-    # get a reference to the processor
-    GWASCatLoader = GWASCatalogLoader()
-
-    # load the data files and create KGX output
-    GWASCatLoader.load(f"{data_dir}/nodes", f"{data_dir}/edges")

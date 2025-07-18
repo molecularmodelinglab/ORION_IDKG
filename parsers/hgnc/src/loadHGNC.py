@@ -21,10 +21,6 @@ class HGNCLoader(SourceDataLoader):
 
     source_id: str = HGNC
     provenance_id: str = 'infores:hgnc'
-    description = "The HUGO Gene Nomenclature Committee (HGNC) database provides open access to HGNC-approved unique symbols and names for human genes, gene groups, and associated resources, including links to genomic, proteomic and phenotypic information."
-    source_data_url = "https://www.genenames.org/download/archive/"
-    license = "https://www.genenames.org/about/"
-    attribution = "https://www.genenames.org/about/"
     parsing_version: str = '1.3'
 
     def __init__(self, test_mode: bool = False, source_data_dir: str = None):
@@ -153,22 +149,3 @@ class HGNCLoader(SourceDataLoader):
 
         # return to the caller
         return load_metadata
-
-
-if __name__ == '__main__':
-    # create a command line parser
-    ap = argparse.ArgumentParser(description='Load HGNC data files and create KGX import files.')
-
-    ap.add_argument('-r', '--data_dir', required=True, help='The location of the HGNC data file')
-
-    # parse the arguments
-    args = vars(ap.parse_args())
-
-    # this is the base directory for data files and the resultant KGX files.
-    HGNC_data_dir: str = args['data_dir']
-
-    # get a reference to the processor
-    HGNC = HGNCLoader()
-
-    # load the data files and create KGX output
-    HGNC.load(HGNC_data_dir, HGNC_data_dir)

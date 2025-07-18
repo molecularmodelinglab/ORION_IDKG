@@ -1,6 +1,5 @@
 import json
-import argparse
-import os
+import jsonlines
 from collections import defaultdict
 
 from Common.biolink_constants import NODE_TYPES, SUBJECT_ID, OBJECT_ID, PREDICATE, PRIMARY_KNOWLEDGE_SOURCE, AGGREGATOR_KNOWLEDGE_SOURCES
@@ -14,6 +13,7 @@ BL_ATTRIBUTE_MAP = {
 
 META_KG_FILENAME = 'meta_knowledge_graph.json'
 TEST_DATA_FILENAME = 'testing_data.json'
+EXAMPLE_DATA_FILENAME = 'example_edges.jsonl'
 
 
 ####
@@ -38,6 +38,7 @@ class MetaKnowledgeGraphBuilder:
             "source_type": "primary",
             "edges": []
         }
+        self.example_edges = []
         self.analyze_nodes(nodes_file_path)
         self.analyze_edges(edges_file_path)
 
@@ -55,27 +56,18 @@ class MetaKnowledgeGraphBuilder:
         node_type_to_attributes = defaultdict(set)
         node_attribute_to_metadata = {}
 
-        # results from bl_utils.find_biolink_leaves for each set of node types
-        node_types_to_leaves = {}
-
         for node in quick_jsonl_file_iterator(nodes_file_path):
 
-            # find the leaf node types of this node's types according to the biolink model, if not done already
+            # find the leaf node types of this node's types according to the biolink model
             try:
-                node_types = frozenset(node[NODE_TYPES])
-            except TypeError as e:
+                leaf_types = self.bl_utils.find_biolink_leaves(frozenset(node[NODE_TYPES]))
+            except TypeError:
                 error_message = f'Node types were not a valid list for node: {node}'
+                leaf_types = {}
                 if self.logger:
                     self.logger.error(error_message)
                 else:
                     print(error_message)
-                node_types = frozenset()
-
-            if node_types not in node_types_to_leaves:
-                leaf_types = self.bl_utils.find_biolink_leaves(node_types)
-                node_types_to_leaves[node_types] = leaf_types
-            else:
-                leaf_types = node_types_to_leaves[node_types]
 
             # store the leaf types for this node id
             node_id_to_leaf_types[node['id']] = leaf_types
@@ -172,6 +164,7 @@ class MetaKnowledgeGraphBuilder:
                                 for qualifier, qualifier_value in edge_qualifier_values.items()
                             ]
                         edge_type_key_to_example[edge_type_key] = example_edge
+                        self.example_edges.append(edge)
 
         for subject_node_type, object_types_to_predicates in edge_types.items():
             for object_node_type, predicates in object_types_to_predicates.items():
@@ -216,3 +209,8 @@ class MetaKnowledgeGraphBuilder:
     def write_test_data_to_file(self, output_file_path: str):
         with open(output_file_path, 'w') as test_data_file:
             test_data_file.write(json.dumps(self.testing_data, indent=4))
+
+    def write_example_data_to_file(self, output_file_path: str):
+        with open(output_file_path, 'w') as output_file_handler:
+            with jsonlines.Writer(output_file_handler) as writer:
+                writer.write_all(self.example_edges)

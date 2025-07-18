@@ -3,7 +3,8 @@ import yaml
 import os
 
 from bmt import Toolkit
-
+from requests.adapters import HTTPAdapter, Retry
+from functools import cache
 
 BIOLINK_MODEL_VERSION = os.environ.get("BL_VERSION", "4.1.6")
 BIOLINK_MODEL_SCHEMA_URL = f"https://raw.githubusercontent.com/biolink/biolink-model/v{BIOLINK_MODEL_VERSION}/biolink-model.yaml"
@@ -39,7 +40,8 @@ class BiolinkUtils:
     def __init__(self):
         self.toolkit = get_biolink_model_toolkit()
 
-    def find_biolink_leaves(self, biolink_concepts: set):
+    @cache
+    def find_biolink_leaves(self, biolink_concepts: frozenset):
         """
         Given a list of biolink concepts, returns the leaves removing any parent concepts.
         :param biolink_concepts: list of biolink concepts
@@ -146,6 +148,21 @@ class BiolinkUtils:
             return True
         return False
 
+    @cache
+    def is_qualifier(self, property_name):
+        return self.toolkit.is_qualifier(property_name)
+
+    def is_valid_node_type(self, node_type):
+        return self.toolkit.is_category(node_type, mixin=True)
+
+    @cache
+    def validate_edge(self, subject_types, predicate, object_types):
+        for subject_type in subject_types:
+            for object_type in object_types:
+                if self.toolkit.validate_edge(subject_type, predicate, object_type, ancestors=True):
+                    return True
+        return False
+
 
 BIOLINK_MAPPING_CHANGES = {
     'KEGG': 'http://identifiers.org/kegg/',
@@ -168,13 +185,24 @@ INFORES_STATUS_VALID = 'valid'
 
 
 class BiolinkInformationResources:
-    infores_catalog_url = 'https://raw.githubusercontent.com/biolink/information-resource-registry/main/infores_catalog.yaml'
-    #infores_catalog_url = 'https://raw.githubusercontent.com/biolink/biolink-model/master/infores_catalog.yaml'
+    infores_catalog_url = \
+        'https://raw.githubusercontent.com/biolink/information-resource-registry/main/infores_catalog.yaml'
 
     def __init__(self):
-        # Fetch the infores catalog from the biolink model
-        infores_catalog_yaml = requests.get(self.infores_catalog_url).text
+        # Fetch the infores catalog from biolink
+        s = requests.Session()
+        retries = Retry(
+            total=8,
+            backoff_factor=0.5,
+            status_forcelist=[429, 500, 502, 503, 504],
+            allowed_methods={'GET'},
+        )
+        s.mount('https://', HTTPAdapter(max_retries=retries))
+        infores_catalog_response = s.get(self.infores_catalog_url)
+        infores_catalog_response.raise_for_status()
+        infores_catalog_yaml = infores_catalog_response.text
         infores_catalog = yaml.safe_load(infores_catalog_yaml)
+
         # store the information as a dictionary with the infores ids as keys
         self.infores_lookup = {infores['id']: infores for infores in infores_catalog['information_resources']}
 

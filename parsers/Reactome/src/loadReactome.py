@@ -95,10 +95,6 @@ class ReactomeLoader(SourceDataLoader):
     # Setting the class level variables for the source ID and provenance
     source_id: str = 'Reactome'
     provenance_id: str = 'infores:reactome'
-    description = "Reactome is a free, open-source, curated and peer-reviewed pathway database"
-    source_data_url = "https://reactome.org/"
-    license = "https://reactome.org/license"
-    attribution = "https://academic.oup.com/nar/article/50/D1/D687/6426058?login=false"
     parsing_version = '1.3'
 
     def __init__(self, test_mode: bool = False, source_data_dir: str = None):
@@ -573,22 +569,3 @@ class ReactomeLoader(SourceDataLoader):
                      f"RETURN a, labels(a) as a_labels, id(a) as a_id, type(r) as r_type, b, labels(b) as b_labels, id(b) as b_id"
 
         return cypher
-
-if __name__ == '__main__':
-        # create a command line parser
-    ap = argparse.ArgumentParser(description='Load Reactome data files and create KGX import files.')
-
-    ap.add_argument('-r', '--data_dir', required=True, help='The location of the KGs data file')
-
-    # # parse the arguments
-    args = vars(ap.parse_args())
-
-    # # this is the base directory for data files and the resultant KGX files.
-    rct_data_dir: str = args['data_dir']
-
-    # get a reference to the processor
-    ch_ldr = ReactomeLoader()
-
-    # load the data files and create KGX output
-    ch_ldr.load(rct_data_dir + '/nodes.jsonl', rct_data_dir + '/edges.jsonl')
-

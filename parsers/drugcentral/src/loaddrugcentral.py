@@ -18,11 +18,7 @@ class DrugCentralLoader(SourceDataLoader):
 
     source_id = 'DrugCentral'
     provenance_id = 'infores:drugcentral'
-    description = 'DrugCentral provides open-source data on active ingredients, chemical entities, pharmaceutical products, drug mode of action, indications, and pharmacologic action for approved drugs, derived from information provided by the US Food & Drug Administration, the European Medicines Agency, and the Pharmaceutical and Medical Devices Agency. Caveat: DrugCentral provides limited information on discontinued and drugs approved outside of the US, but users should be aware that that information has not been validated.'
-    source_data_url = "https://drugcentral.org/download"
-    license = "https://drugcentral.org/privacy"
-    attribution = "https://drugcentral.org/about"
-    parsing_version: str = '1.5'
+    parsing_version: str = '1.6'
 
     omop_relationmap = {'off-label use': 'biolink:applied_to_treat',  # is substance that treats
                         'reduce risk': 'biolink:preventative_for_condition',  # is substance that treats
@@ -294,27 +290,3 @@ def get_bioactivity_predicate(line):
         raise SourceDataBrokenError(f'Predicate mapping for {action_type} not found')
 
     return predicate
-
-
-
-
-
-if __name__ == '__main__':
-    # create a command line parser
-    ap = argparse.ArgumentParser(description='Load drugcentral sqlfile and create KGX import files.')
-
-    # command line should be like: python loadGOA.py -p /projects/stars/ORION/UniProtKB_data -g goa_human.gaf.gz -m json
-    ap.add_argument('-p', '--data_dir', required=True, help='The location of the data files')
-
-    # parse the arguments
-    args = vars(ap.parse_args())
-
-    # get the params
-    data_dir = args['data_dir']
-
-    # get a reference to the processor
-    loader = DrugCentralLoader(False)
-
-    # load the data files and create KGX output
-    loader.load(f"{data_dir}/nodes", f"{data_dir}/edges")
-

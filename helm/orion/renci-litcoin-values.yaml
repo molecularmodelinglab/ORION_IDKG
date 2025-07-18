@@ -1,0 +1,50 @@
+# Values for running ORION on Sterling at RENCI for LitCoin
+
+replicaCount: 1
+
+orion:
+  graphID: "LitCoin_ORION"
+  # optionally use a remote graph spec by supplying a url
+  # graphSpec: 'https://stars.renci.org/var/data_services/graph_specs/current-graph-spec.yml'
+  graphSpec: "litcoin-graph-spec.yaml"
+  # useLocalGraphSpec true if the graphSpec is a file in the codebase (mainly for testing), false if a remote URL
+  useLocalGraphSpec: true
+  buildMode: true
+  image:
+    repository: ghcr.io/robokopu24/orion
+    pullPolicy: IfNotPresent
+    tag: v1.1.0
+  graphsVolume:
+    use_nfs: true
+    nfs_server: na-projects.edc.renci.org
+    nfs_path:  # we need to make a new space for this
+    nfs_mount_subpath: # we need to make a new space for this
+  sourcesVolume:
+    use_nfs: true
+    nfs_server: na-projects.edc.renci.org
+    nfs_path: # we need to make a new space for this
+    nfs_mount_subpath: # we need to make a new space for this
+  neo4jScratchVolume:
+    size: 20Gi
+  resources:
+    limits:
+      cpu: "2000m"
+      memory: 12Gi
+      ephemeral-storage: 2Gi
+    requests:
+      cpu: "2000m"
+      memory: 8Gi
+      ephemeral-storage: 1Gi
+  securityContext:
+    runAsUser: 30000
+    runAsGroup: 1000
+  normalization:
+    nodeNormEndpoint: https://nodenormalization-sri.renci.org/
+    edgeNormEndpoint: https://bl-lookup-sri.renci.org/
+    nameResolverEndpoint: https://name-resolution-sri.renci.org/
+    sapbertEndpoint: https://sap-qdrant.apps.renci.org/
+    bl_version: 4.2.5
+  outputURL: https://stars.renci.org/var/data_services/litcoin/graphs/
+  openAI:
+    openAIKey: secret_key_here_do_not_commit
+    openAIOrg: secret_org_here_do_not_commit

@@ -53,10 +53,6 @@ class GtoPdbLoader(SourceDataLoader):
 
     source_id: str = 'GtoPdb'
     provenance_id = 'infores:gtopdb'
-    description = "The International Union of Basic and Clinical Pharmacology (IUPHAR) / British Pharmacological Society (BPS) Guide to Pharmacology database (GtoPdb) provides searchable open-source quantitative information on drug targets and the prescription medicines and experimental drugs that act on them."
-    source_data_url = "http://www.guidetopharmacology.org/"
-    license = "https://www.guidetopharmacology.org/about.jsp#license"
-    attribution = "https://www.guidetopharmacology.org/citing.jsp"
     parsing_version: str = '1.4'
 
     def __init__(self, test_mode: bool = False, source_data_dir: str = None):
@@ -437,24 +433,3 @@ class GtoPdbLoader(SourceDataLoader):
                 if not r['Type'].startswith('Peptide') and not r['Type'].startswith('Antibody'):
                     self.ligands.append(r['Ligand id'])
     '''
-
-if __name__ == '__main__':
-    """
-    entry point to initiate the parsing outside like the load manager
-    """
-    # create a command line parser
-    ap = argparse.ArgumentParser(description='Load GtoPdb data files and create KGX import files.')
-
-    ap.add_argument('-c', '--data_path', required=True, help='The location of the GtoPdb data files')
-
-    # parse the arguments
-    args = vars(ap.parse_args())
-
-    # the path to the data
-    data_path: str = args['data_path']
-
-    # get a reference to the processor
-    gtopdb: GtoPdbLoader = GtoPdbLoader()
-
-    # load the data files and create KGX output
-    gtopdb.load(data_path, data_path)

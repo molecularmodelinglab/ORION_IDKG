@@ -1,11 +1,15 @@
+import json
 import os
 import argparse
 import datetime
+import time
 from collections import defaultdict
 
 from Common.data_sources import SourceDataLoaderClassFactory, RESOURCE_HOGS, get_available_data_sources
+from Common.exceptions import DataVersionError
 from Common.utils import LoggingUtil, GetDataPullError
 from Common.kgx_file_normalizer import KGXFileNormalizer
+from Common.kgx_validation import validate_graph
 from Common.normalization import NormalizationScheme, NodeNormalizer, EdgeNormalizer, NormalizationFailedError
 from Common.metadata import SourceMetadata
 from Common.loader_interface import SourceDataBrokenError, SourceDataFailedError
@@ -14,6 +18,10 @@ from Common.supplementation import SequenceVariantSupplementation, Supplementati
 
 SOURCE_DATA_LOADER_CLASSES = SourceDataLoaderClassFactory()
 
+logger = LoggingUtil.init_logging("ORION.Common.SourceDataManager",
+                                  line_format='medium',
+                                  log_file_path=os.environ['ORION_LOGS'])
+
 
 class SourceDataManager:
 
@@ -21,17 +29,13 @@ class SourceDataManager:
                  test_mode: bool = False,
                  fresh_start_mode: bool = False):
 
-        self.logger = LoggingUtil.init_logging("ORION.Common.SourceDataManager",
-                                               line_format='medium',
-                                               log_file_path=os.environ['ORION_LOGS'])
-
         self.test_mode = test_mode
         if test_mode:
-            self.logger.info(f'SourceDataManager running in test mode... test data sets will be used when possible.')
+            logger.info(f'SourceDataManager running in test mode... test data sets will be used when possible.')
 
         self.fresh_start_mode = fresh_start_mode
         if fresh_start_mode:
-            self.logger.info(f'SourceDataManager running in fresh start mode... previous state and files ignored.')
+            logger.info(f'SourceDataManager running in fresh start mode... previous state and files ignored.')
 
         # locate and verify the main storage directory
         self.storage_dir = self.init_storage_dir()
@@ -54,23 +58,23 @@ class SourceDataManager:
                      normalization_scheme: NormalizationScheme = None,
                      supplementation_version: str='latest'):
 
-        self.logger.info(f"Running pipeline on {source_id}...")
+        logger.info(f"Running pipeline on {source_id}...")
         self.init_source_output_dir(source_id)
 
         if source_version == 'latest':
             source_version = self.get_latest_source_version(source_id)
         if not self.run_fetch_stage(source_id, source_version):
-            self.logger.warning(f"Pipeline for {source_id} aborted during fetch stage.")
+            logger.warning(f"Pipeline for {source_id} aborted during fetch stage.")
             return False
 
         if parsing_version == 'latest':
             parsing_version = self.get_latest_parsing_version(source_id)
         if not self.run_parsing_stage(source_id, source_version, parsing_version=parsing_version):
-            self.logger.warning(f"Pipeline for {source_id} aborted during parsing stage.")
+            logger.warning(f"Pipeline for {source_id} aborted during parsing stage.")
             return False
 
         if not normalization_scheme:
-            self.logger.debug(f"No normalization scheme provided, using defaults/latest...")
+            logger.debug(f"No normalization scheme provided, using defaults/latest...")
             normalization_scheme = NormalizationScheme()
         if normalization_scheme.node_normalization_version == 'latest':
             normalization_scheme.node_normalization_version = self.get_latest_node_normalization_version()
@@ -81,7 +85,7 @@ class SourceDataManager:
                                             source_version,
                                             parsing_version=parsing_version,
                                             normalization_scheme=normalization_scheme):
-            self.logger.warning(f"Pipeline for {source_id} aborted during normalization stage.")
+            logger.warning(f"Pipeline for {source_id} aborted during normalization stage.")
             return False
 
         if supplementation_version == 'latest':
@@ -91,7 +95,7 @@ class SourceDataManager:
                                               parsing_version=parsing_version,
                                               supplementation_version=supplementation_version,
                                               normalization_scheme=normalization_scheme):
-            self.logger.warning(f"Pipeline for {source_id} supplementation stage not successful.")
+            logger.warning(f"Pipeline for {source_id} supplementation stage not successful.")
             return False
 
         release_version = self.run_qc_and_metadata_stage(source_id,
@@ -100,59 +104,58 @@ class SourceDataManager:
                                                          normalization_scheme=normalization_scheme,
                                                          supplementation_version=supplementation_version)
         if release_version is None:
-            self.logger.warning(f"Pipeline for {source_id} failed quality control...")
+            logger.warning(f"Pipeline for {source_id} failed quality control...")
             return False
         else:
             return release_version
 
     def run_fetch_stage(self, source_id: str, source_version: str):
         if not source_version:
-            self.logger.error(f"Error running pipeline for {source_id} - could not determine latest version.")
+            logger.error(f"Error running pipeline for {source_id} - could not determine latest version.")
             return False
 
         fetch_status = self.get_source_metadata(source_id, source_version).get_fetch_status()
         if fetch_status == SourceMetadata.STABLE:
             return True
         elif fetch_status == SourceMetadata.IN_PROGRESS:
-            self.logger.info(f"Fetch stage for {source_id} is already in progress.")
+            logger.info(f"Fetch stage for {source_id} is already in progress.")
             return False
         elif fetch_status == SourceMetadata.BROKEN or fetch_status == SourceMetadata.FAILED:
             # TODO consider retry logic here
-            self.logger.info(f"Fetch stage for {source_id} previously: {fetch_status}")
+            logger.info(f"Fetch stage for {source_id} previously: {fetch_status}")
             return False
         else:
-            self.logger.info(f"Fetching source data for {source_id} (version: {source_version})...")
+            logger.info(f"Fetching source data for {source_id} (version: {source_version})...")
             return self.fetch_source(source_id, source_version=source_version)
 
-    def get_latest_source_version(self, source_id: str, retries: int=0):
+    def get_latest_source_version(self, source_id: str, retries: int = 0):
         if source_id in self.latest_source_version_lookup:
             return self.latest_source_version_lookup[source_id]
 
         loader = SOURCE_DATA_LOADER_CLASSES[source_id](test_mode=self.test_mode)
-        self.logger.info(f"Retrieving latest source version for {source_id}...")
+        logger.info(f"Retrieving latest source version for {source_id}...")
         try:
             latest_source_version = loader.get_latest_source_version()
-            self.logger.info(f"Found latest source version for {source_id}: {latest_source_version}")
+            logger.info(f"Found latest source version for {source_id}: {latest_source_version}")
             self.latest_source_version_lookup[source_id] = latest_source_version
             return latest_source_version
         except GetDataPullError as failed_error:
-            self.logger.error(
-                f"Error while checking for latest source version for {source_id}: {failed_error.error_message}")
+            error_message = f"Error while checking for latest source version for {source_id}: " \
+                            f"{failed_error.error_message}"
+            logger.error(error_message)
             if retries < 2:
+                time.sleep(3)
                 return self.get_latest_source_version(source_id, retries=retries+1)
             else:
-                # TODO what should we do here?
-                # no great place to write an error in metadata because metadata is specific to source versions
-                # source_metadata.set_version_checking_error(failed_error.error_message)
-                return None
+                raise DataVersionError(error_message=error_message)
         except Exception as e:
-            self.logger.error(
-                f"Error while checking for latest source version for {source_id}: {repr(e)}-{str(e)}")
-            return None
+            error_message = f"Error while checking for latest source version for {source_id}: {repr(e)}-{str(e)}"
+            logger.error(error_message)
+            raise DataVersionError(error_message=error_message)
 
     def fetch_source(self, source_id: str, source_version: str='latest', retries: int=0):
 
-        self.logger.debug(f'Fetching source {source_id}...')
+        logger.debug(f'Fetching source {source_id}...')
         source_version_path = self.get_source_version_path(source_id, source_version)
         os.makedirs(source_version_path, exist_ok=True)
         source_metadata = self.get_source_metadata(source_id, source_version)
@@ -164,31 +167,31 @@ class SourceDataManager:
                 if source_version != self.get_latest_source_version(source_id):
                     unsupported_error_message = f"Fetching source data {source_id} (version: {source_version}) failed - " \
                                                 f"fetching old source versions not supported."
-                    self.logger.error(unsupported_error_message)
+                    logger.error(unsupported_error_message)
                     source_metadata.set_fetch_error(unsupported_error_message)
                     source_metadata.set_fetch_status(SourceMetadata.FAILED)
                     return False
 
-                self.logger.info(f'Retrieving source data for {source_id} (version: {source_version})..')
+                logger.info(f'Retrieving source data for {source_id} (version: {source_version})..')
                 loader.get_data()
             else:
-                self.logger.info(f'Source data was already retrieved for {source_id}..')
+                logger.info(f'Source data was already retrieved for {source_id}..')
             source_metadata.set_fetch_status(SourceMetadata.STABLE)
             return True
 
         except GetDataPullError as failed_error:
-            self.logger.info(
+            logger.info(
                 f"Error while fetching source data for {source_id} (version: {source_version}): "
                 f"{failed_error.error_message}")
             if retries < 2:
-                self.logger.error(f"Retrying fetching for {source_id}.. (retry {retries + 1})")
+                logger.error(f"Retrying fetching for {source_id}.. (retry {retries + 1})")
                 self.fetch_source(source_id=source_id, source_version=source_version, retries=retries+1)
             else:
                 source_metadata.set_fetch_error(failed_error.error_message)
                 source_metadata.set_fetch_status(SourceMetadata.FAILED)
                 return False
         except Exception as e:
-            self.logger.info(
+            logger.info(
                 f"Error while fetching source data for {source_id} (version: {source_version}): "
                 f"{repr(e)}-{str(e)}")
             source_metadata.set_fetch_error(f"{repr(e)}-{str(e)}")
@@ -201,15 +204,15 @@ class SourceDataManager:
         if parsing_status == SourceMetadata.STABLE:
             return True
         elif parsing_status == SourceMetadata.IN_PROGRESS:
-            self.logger.info(f"Parsing stage for {source_id} is already in progress.")
+            logger.info(f"Parsing stage for {source_id} is already in progress.")
             return False
         elif parsing_status == SourceMetadata.BROKEN:
-            self.logger.info(f"Parsing stage for {source_id} previously: {parsing_status}")
+            logger.info(f"Parsing stage for {source_id} previously: {parsing_status}")
             return False
         else:
             # if parsing_status == SourceMetadata.FAILED:
             # TODO consider retry logic here - should we only try a few times? ask user?
-            self.logger.info(f"Parsing source {source_id} (source_version: {source_version}, "
+            logger.info(f"Parsing source {source_id} (source_version: {source_version}, "
                              f"parsing_version: {parsing_version})...")
             return self.parse_source(source_id, source_version, parsing_version)
 
@@ -217,10 +220,10 @@ class SourceDataManager:
 
         # we currently don't support any parser version but the latest, just bail
         if parsing_version != self.get_latest_parsing_version(source_id):
-            self.logger.error(f'Parser version {parsing_version} unavailable for {source_id}.')
+            logger.error(f'Parser version {parsing_version} unavailable for {source_id}.')
             return False
 
-        self.logger.info(f'Parsing source {source_id}...')
+        logger.info(f'Parsing source {source_id}...')
         current_time = datetime.datetime.now().strftime('%m-%d-%y %H:%M:%S')
         source_metadata = self.get_source_metadata(source_id, source_version)
         source_metadata.update_parsing_metadata(parsing_version,
@@ -251,14 +254,14 @@ class SourceDataManager:
             return True
 
         except SourceDataBrokenError as broken_error:
-            self.logger.error(f"SourceDataBrokenError while parsing {source_id}: {broken_error.error_message}")
+            logger.error(f"SourceDataBrokenError while parsing {source_id}: {broken_error.error_message}")
             source_metadata.update_parsing_metadata(parsing_version,
                                                     parsing_status=SourceMetadata.BROKEN,
                                                     parsing_error=broken_error.error_message,
                                                     parsing_time=current_time)
             return False
         except SourceDataFailedError as failed_error:
-            self.logger.error(f"SourceDataFailedError while parsing {source_id}: {failed_error.error_message}")
+            logger.error(f"SourceDataFailedError while parsing {source_id}: {failed_error.error_message}")
             source_metadata.update_parsing_metadata(parsing_version,
                                                     parsing_status=SourceMetadata.FAILED,
                                                     parsing_error=failed_error.error_message,
@@ -292,10 +295,10 @@ class SourceDataManager:
         if normalization_status == SourceMetadata.STABLE:
             return True
         elif normalization_status == SourceMetadata.IN_PROGRESS:
-            self.logger.info(f"Normalization stage for {source_id} is already in progress.")
+            logger.info(f"Normalization stage for {source_id} is already in progress.")
             return False
         elif normalization_status == SourceMetadata.BROKEN or normalization_status == SourceMetadata.FAILED:
-            self.logger.info(f"Normalization stage for {source_id} previously: {normalization_status}")
+            logger.info(f"Normalization stage for {source_id} previously: {normalization_status}")
             # TODO consider retry logic here
             return False
         else:
@@ -309,7 +312,7 @@ class SourceDataManager:
                          source_version: str,
                          parsing_version: str,
                          normalization_scheme: NormalizationScheme):
-        self.logger.info(f"Normalizing {source_id}...")
+        logger.info(f"Normalizing {source_id}...")
         composite_normalization_version = normalization_scheme.get_composite_normalization_version()
         versioned_normalization_dir = self.get_versioned_normalization_directory(source_id,
                                                                                  source_version,
@@ -359,7 +362,7 @@ class SourceDataManager:
             error_message = f"{source_id} NormalizationFailedError: {failed_error.error_message}"
             if failed_error.actual_error:
                 error_message += f" - {failed_error.actual_error}"
-            self.logger.error(error_message)
+            logger.error(error_message)
             source_metadata.update_normalization_metadata(parsing_version,
                                                           composite_normalization_version,
                                                           normalization_status=SourceMetadata.FAILED,
@@ -367,7 +370,7 @@ class SourceDataManager:
                                                           normalization_time=current_time)
             return False
         except Exception as e:
-            self.logger.error(f"Error while normalizing {source_id}: {repr(e)}")
+            logger.error(f"Error while normalizing {source_id}: {repr(e)}")
             source_metadata.update_normalization_metadata(parsing_version,
                                                           composite_normalization_version,
                                                           normalization_status=SourceMetadata.FAILED,
@@ -399,7 +402,7 @@ class SourceDataManager:
                                   normalization_scheme: NormalizationScheme):
 
         if supplementation_version != SequenceVariantSupplementation.SUPPLEMENTATION_VERSION:
-            self.logger.warning(f"Supplementation version {supplementation_version} is not supported.")
+            logger.warning(f"Supplementation version {supplementation_version} is not supported.")
             return False
 
         composite_normalization_version = normalization_scheme.get_composite_normalization_version()
@@ -410,11 +413,11 @@ class SourceDataManager:
         if supplementation_status == SourceMetadata.STABLE:
             return True
         elif supplementation_status == SourceMetadata.FAILED or supplementation_status == SourceMetadata.BROKEN:
-            self.logger.info(f"Supplementation stage for {source_id} previously failed or was broken.")
+            logger.info(f"Supplementation stage for {source_id} previously failed or was broken.")
             # TODO consider retry logic here
             return False
         elif supplementation_status == SourceMetadata.IN_PROGRESS:
-            self.logger.info(f"Supplementation stage for {source_id} is already in progress.")
+            logger.info(f"Supplementation stage for {source_id} is already in progress.")
             return False
         else:
             return self.supplement_source(source_id,
@@ -429,7 +432,7 @@ class SourceDataManager:
                           parsing_version: str,
                           supplementation_version: str,
                           normalization_scheme: NormalizationScheme):
-        self.logger.info(f"Supplementing source {source_id}...")
+        logger.info(f"Supplementing source {source_id}...")
         composite_normalization_version = normalization_scheme.get_composite_normalization_version()
         current_time = datetime.datetime.now().strftime('%m-%d-%y %H:%M:%S')
         versioned_supplementation_dir = self.get_versioned_supplementation_directory(source_id,
@@ -478,7 +481,7 @@ class SourceDataManager:
         except SupplementationFailedError as failed_error:
             error_message = f"{source_id} SupplementationFailedError: " \
                             f"{failed_error.error_message} - {failed_error.actual_error}"
-            self.logger.error(error_message)
+            logger.error(error_message)
             source_metadata.update_supplementation_metadata(parsing_version,
                                                             composite_normalization_version,
                                                             supplementation_version,
@@ -488,7 +491,7 @@ class SourceDataManager:
             return False
 
         except Exception as e:
-            self.logger.error(f"{source_id} Error while supplementing: {repr(e)}")
+            logger.error(f"{source_id} Error while supplementing: {repr(e)}")
             source_metadata.update_supplementation_metadata(parsing_version,
                                                             composite_normalization_version,
                                                             supplementation_version,
@@ -503,20 +506,36 @@ class SourceDataManager:
                                   parsing_version: str,
                                   supplementation_version: str,
                                   normalization_scheme: NormalizationScheme):
-        # source data QC here
+        # source data QC should go here
         source_metadata = self.get_source_metadata(source_id, source_version)
-        normalization_version = normalization_scheme.get_composite_normalization_version()
-
-        self.logger.info(f'Generating release for {source_id}')
         loader = SOURCE_DATA_LOADER_CLASSES[source_id](test_mode=self.test_mode)
         source_meta_information = loader.get_source_meta_information()
-        source_metadata.generate_release_metadata(parsing_version=parsing_version,
-                                                  supplementation_version=supplementation_version,
-                                                  normalization_version=normalization_version,
-                                                  source_meta_information=source_meta_information)
-        return source_metadata.get_release_version(parsing_version=parsing_version,
-                                                   supplementation_version=supplementation_version,
-                                                   normalization_version=normalization_version)
+        normalization_version = normalization_scheme.get_composite_normalization_version()
+        release_version = source_metadata.generate_release_metadata(parsing_version=parsing_version,
+                                                                    supplementation_version=supplementation_version,
+                                                                    normalization_version=normalization_version,
+                                                                    source_meta_information=source_meta_information)
+        logger.info(f'Release version for {source_id}: {release_version}')
+
+        composite_normalization_version = normalization_scheme.get_composite_normalization_version()
+        nodes_filepath = self.get_normalized_node_file_path(source_id, source_version, parsing_version,
+                                                            composite_normalization_version)
+        edges_filepath = self.get_normalized_edge_file_path(source_id, source_version, parsing_version,
+                                                            composite_normalization_version)
+        source_version_path = self.get_source_version_path(source_id, source_version)
+        qc_output_filename = f'{source_id}_{release_version}.json'
+        release_qc_output_path = os.path.join(source_version_path, qc_output_filename)
+        if not os.path.exists(release_qc_output_path):
+            logger.info(f'Running QC and validation...')
+            qc_results = validate_graph(nodes_file_path=nodes_filepath,
+                                        edges_file_path=edges_filepath,
+                                        graph_id=source_id,
+                                        graph_version=release_version,
+                                        logger=logger)
+            with open(release_qc_output_path, 'w') as qc_out:
+                qc_out.write(json.dumps(qc_results, indent=4))
+            logger.info(f'QC and validation complete, metadata generated: {qc_output_filename}')
+        return release_version
 
     def get_source_metadata(self, source_id: str, source_version):
         if source_id not in self.source_metadata or source_version not in self.source_metadata[source_id]:
@@ -686,6 +705,7 @@ class SourceDataManager:
 
 
 if __name__ == '__main__':
+
     parser = argparse.ArgumentParser(description="Transform data sources into KGX files.")
     parser.add_argument('data_source',
                         nargs="+",

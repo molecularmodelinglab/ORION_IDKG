@@ -71,10 +71,6 @@ class IALoader(SourceDataLoader):
 
     source_id: str = 'IntAct'
     provenance_id: str = 'infores:intact'
-    description = "The IntAct Molecular Interaction Database provides open access to molecular interactions data derived from literature curation or direct user submission."
-    source_data_url = "https://www.ebi.ac.uk/intact/"
-    license = "https://www.ebi.ac.uk/about/terms-of-use/"
-    attribution = "http://europepmc.org/article/MED/24234451"
     parsing_version: str = '1.2'
 
     def __init__(self, test_mode: bool = False, source_data_dir: str = None):
@@ -514,25 +510,3 @@ class IALoader(SourceDataLoader):
 
         # return the value to the caller
         return ret_val
-
-
-if __name__ == '__main__':
-    # create a command line parser
-    ap = argparse.ArgumentParser(description='Load IntAct virus interaction data file and create KGX import files.')
-
-    # command line should be like: python loadIA.py -d E:/ORION/IntAct_data
-    ap.add_argument('-i', '--data_dir', required=True, help='The IntAct data file directory')
-
-    # parse the arguments
-    args = vars(ap.parse_args())
-
-    # IntAct_data_dir = 'E:/ORION/IntAct'
-    IntAct_data_dir = args['data_dir']
-    out_mode = args['out_mode']
-
-    # get a reference to the processor
-    # logging.DEBUG
-    ia = IALoader(False)
-
-    # load the data files and create KGX output files
-    ia.load(IntAct_data_dir, IntAct_data_dir)
