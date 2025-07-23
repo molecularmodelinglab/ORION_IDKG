@@ -112,7 +112,6 @@ class SMACCLoader(SourceDataLoader):
                 "H7N7":"NCBITaxon:119218",
                 "HCoV-229E":"NCBITaxon:11137",
                 "HPIV-3":"NCBITaxon:11216",
-                "HPIV-3":"NCBITaxon:11216",
                 "MERS-CoV":"NCBITaxon:1335626",
                 "Powassan":"NCBITaxon:11083",
                 "RSV":"NCBITaxon:12814",
@@ -124,7 +123,6 @@ class SMACCLoader(SourceDataLoader):
             }
             #Get nodeB (compound) id
             nodeB_id = species_id_mapping.get(row['Virus'])
-
             #Add edge properties 
             if pd.isnull(row['Assay ChEMBL ID']) == False: edgeprops.update({'Assay ChEMBL ID':row['Assay ChEMBL ID']})
             if pd.isnull(row['Assay_Type']) == False: edgeprops.update({'Assay_Type':row['Assay_Type']})
