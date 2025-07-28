@@ -84,8 +84,8 @@ class PHAROSLoader(SourceDataLoader):
         """
         super().__init__(test_mode=test_mode, source_data_dir=source_data_dir)
 
-        self.data_file = 'latest.sql.gz'
-        self.data_url = 'http://juniper.health.unm.edu/tcrd/download/'
+        self.data_file = 'pharos319.sql'
+        self.data_url = 'https://figshare.com/ndownloader/files/53131946/'
         self.source_db = 'Target Central Resource Database'
         self.pharos_db = None
         self.genetic_association_predicate = 'WIKIDATA_PROPERTY:P2293'
