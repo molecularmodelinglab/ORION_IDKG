@@ -2,6 +2,7 @@ from collections import defaultdict
 import importlib
 
 BINDING_DB = 'BINDING-DB'
+BIOGRID = "BioGRID"
 CAM_KP = 'CAM-KP'
 CCIDB = 'CCIDB'
 CEBS = 'CEBS'
@@ -67,6 +68,7 @@ RESOURCE_HOGS = [GTEX, GWAS_CATALOG, UNIREF, ONTOLOGICAL_HIERARCHY, UBERGRAPH_RE
 
 SOURCE_DATA_LOADER_CLASS_IMPORTS = {
     BINDING_DB: ("parsers.BINDING.src.loadBINDINGDB", "BINDINGDBLoader"),
+    BIOGRID: ("parsers.BioGRID.src.loadBioGRID", "BioGRIDLoader"),
     CAM_KP: ("parsers.camkp.src.loadCAMKP", "CAMKPLoader"),
     CCIDB: ("parsers.CCIDB.src.loadCCIDB", "CCIDBLoader"),
     CEBS: ("parsers.CEBS.src.loadCEBS", "CEBSLoader"),
