@@ -32,13 +32,13 @@ class BioGRIDLoader(SourceDataLoader):
         super().__init__(test_mode=test_mode, source_data_dir=source_data_dir)
 
         # ZIP file names that will be downloaded
-        self.biogrid_all_zip = 'BIOGRID-ALL-4.4.247.tab3.zip'
-        self.biogrid_chemicals_zip = 'BIOGRID-CHEMICALS-4.4.247.chemtab.zip'
+        self.biogrid_all_zip = 'BIOGRID-ALL-4.4.248.tab3.zip'
+        self.biogrid_chemicals_zip = 'BIOGRID-CHEMICALS-4.4.248.chemtab.zip'
         self.zip_files = [self.biogrid_all_zip, self.biogrid_chemicals_zip]
         
         # TXT file names that will be extracted from ZIP files
-        self.biogrid_all_file = 'BIOGRID-ALL-4.4.247.tab3.txt'
-        self.biogrid_chemicals_file = 'BIOGRID-CHEMICALS-4.4.247.chemtab.txt'
+        self.biogrid_all_file = 'BIOGRID-ALL-4.4.248.tab3.txt'
+        self.biogrid_chemicals_file = 'BIOGRID-CHEMICALS-4.4.248.chemtab.txt'
         self.data_files = [self.biogrid_all_file, self.biogrid_chemicals_file]
         self._load_chemical_action_mappings()
 
@@ -59,7 +59,7 @@ class BioGRIDLoader(SourceDataLoader):
     def get_latest_source_version(self) -> str:
         """
         Scrapes the archive directory for the latest release.
-        :return: Version string like '4.4.247'
+        :return: Version string like '4.4.248'
         """
         try:
             response = requests.get(self.release_archive_url)

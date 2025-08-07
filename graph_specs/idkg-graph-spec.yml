@@ -35,6 +35,8 @@ graphs:
         merge_strategy: connected_edge_subset
       - source_id: BioGRID
         strict_normalization: False
+      - source_id: PATHOPHENODB
+        strict_normalization: False
         # source_version:
         # parsing_version:
         # node_normalization_version: latest

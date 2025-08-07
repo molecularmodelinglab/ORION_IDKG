@@ -44,6 +44,7 @@ OHD_CAROLINA = 'OHD-Carolina'
 NPASS = 'NPASS'
 ONTOLOGICAL_HIERARCHY = 'OntologicalHierarchy'
 PANTHER = 'PANTHER'
+PATHOPHENODB = 'PATHOPHENODB'
 PHAROS = 'PHAROS'
 PLANT_GOA = 'PlantGOA'
 REACTOME = 'Reactome'
@@ -110,6 +111,7 @@ SOURCE_DATA_LOADER_CLASS_IMPORTS = {
     NPASS: ("parsers.NPASS.src.loadNPASS", "NPASSLoader"),
     ONTOLOGICAL_HIERARCHY: ("parsers.UberGraph.src.loadUG", "OHLoader"),
     PANTHER: ("parsers.panther.src.loadPanther", "PLoader"),
+    PATHOPHENODB: ("parsers.PathoPhenoDB.src.loadPathoPhenoDB", "PathoPhenoDBLoader"),
     PHAROS: ("parsers.PHAROS.src.loadPHAROS", "PHAROSLoader"),
     PLANT_GOA: ("parsers.GOA.src.loadGOA", "PlantGOALoader"),
     REACTOME: ("parsers.Reactome.src.loadReactome", "ReactomeLoader"),
