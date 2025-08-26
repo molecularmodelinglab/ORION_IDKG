@@ -13,6 +13,10 @@ class PathoPhenoDBLoader(SourceDataLoader):
     source_id = 'PATHOPHENODB'
     provenance_id = 'infores:pathophenodb'
     parsing_version: str = '1.0'
+    description = 'A database of pathogens and their phenotypes for diagnostic support in infections.'
+    source_data_url = 'http://patho.phenomebrowser.net/'
+    license = 'Public domain'
+    attribution = 'http://patho.phenomebrowser.net/'
 
     # PathoPhenoDB data URL
     data_url = "http://patho.phenomebrowser.net/media/downloads/patho_pheno_withsymbols.nt"

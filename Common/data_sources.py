@@ -63,6 +63,7 @@ YEAST_COSTANZA = 'Costanza2016Data'
 YEAST_GSE61888 = 'YeastGSE61888'
 YEAST_GASCHDIAMIDE = 'YeastGaschDiamideGeneExpression'
 YEAST_STRING = 'STRING-DB-Yeast'
+CDCWONDER = 'CDCWONDER'
 
 RESOURCE_HOGS = [GTEX, GWAS_CATALOG, UNIREF, ONTOLOGICAL_HIERARCHY, UBERGRAPH_REDUNDANT,
                  SGD, HUMAN_STRING]
@@ -128,7 +129,8 @@ SOURCE_DATA_LOADER_CLASS_IMPORTS = {
     YEAST_COSTANZA: ("parsers.yeast.src.loadCostanza2016", "Costanza2016Loader"),
     YEAST_GASCHDIAMIDE: ("parsers.yeast.src.loadYeastGeneExpressionGasch", "YeastGaschDiamideLoader"),
     YEAST_GSE61888: ("parsers.yeast.src.loadYeastNucleosomesGSE61888", "YeastGSE61888Loader"),
-    YEAST_STRING: ("parsers.STRING.src.loadSTRINGDB", "YeastSTRINGDBLoader")
+    YEAST_STRING: ("parsers.STRING.src.loadSTRINGDB", "YeastSTRINGDBLoader"),
+    CDCWONDER: ("parsers.CDCWONDER.src.loadCDCWONDER", "CDCWONDERLoader")
 }
 
 

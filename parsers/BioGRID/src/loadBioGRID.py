@@ -18,6 +18,10 @@ class BioGRIDLoader(SourceDataLoader):
     source_id = 'BIOGRID'
     provenance_id = 'infores:biogrid'
     parsing_version: str = '1.0'
+    description = 'he Biological General Repository for Interaction Datasets (BioGRID) is a public database that archives and disseminates genetic and protein interaction data from model organisms and humans.'
+    source_data_url = 'https://thebiogrid.org/'
+    license = 'Public domain'
+    attribution = 'https://thebiogrid.org/'
 
     release_archive_url = "https://downloads.thebiogrid.org/BioGRID/Release-Archive/"
     release_archive_download_url = "https://downloads.thebiogrid.org/Download/BioGRID/Release-Archive/"
