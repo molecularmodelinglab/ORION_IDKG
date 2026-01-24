@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 #These environment variables are required by Data Services. See the README for more information.
+#This file was created for internal use to simplify running ORION on our server.
 
 #ORION_STORAGE - a directory for storing data sources
 #mkdir -p "$PWD/../ORION_storage"
