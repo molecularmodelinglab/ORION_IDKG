@@ -2,6 +2,7 @@ from collections import defaultdict
 import importlib
 
 BINDING_DB = 'BINDING-DB'
+BIOGRID = "BioGRID"
 CAM_KP = 'CAM-KP'
 CCIDB = 'CCIDB'
 CEBS = 'CEBS'
@@ -43,6 +44,7 @@ OHD_CAROLINA = 'OHD-Carolina'
 NPASS = 'NPASS'
 ONTOLOGICAL_HIERARCHY = 'OntologicalHierarchy'
 PANTHER = 'PANTHER'
+PATHOPHENODB = 'PATHOPHENODB'
 PHAROS = 'PHAROS'
 PLANT_GOA = 'PlantGOA'
 REACTOME = 'Reactome'
@@ -61,12 +63,14 @@ YEAST_COSTANZA = 'Costanza2016Data'
 YEAST_GSE61888 = 'YeastGSE61888'
 YEAST_GASCHDIAMIDE = 'YeastGaschDiamideGeneExpression'
 YEAST_STRING = 'STRING-DB-Yeast'
+CDCWONDER = 'CDCWONDER'
 
 RESOURCE_HOGS = [GTEX, GWAS_CATALOG, UNIREF, ONTOLOGICAL_HIERARCHY, UBERGRAPH_REDUNDANT,
                  SGD, HUMAN_STRING]
 
 SOURCE_DATA_LOADER_CLASS_IMPORTS = {
     BINDING_DB: ("parsers.BINDING.src.loadBINDINGDB", "BINDINGDBLoader"),
+    BIOGRID: ("parsers.BioGRID.src.loadBioGRID", "BioGRIDLoader"),
     CAM_KP: ("parsers.camkp.src.loadCAMKP", "CAMKPLoader"),
     CCIDB: ("parsers.CCIDB.src.loadCCIDB", "CCIDBLoader"),
     CEBS: ("parsers.CEBS.src.loadCEBS", "CEBSLoader"),
@@ -108,6 +112,7 @@ SOURCE_DATA_LOADER_CLASS_IMPORTS = {
     NPASS: ("parsers.NPASS.src.loadNPASS", "NPASSLoader"),
     ONTOLOGICAL_HIERARCHY: ("parsers.UberGraph.src.loadUG", "OHLoader"),
     PANTHER: ("parsers.panther.src.loadPanther", "PLoader"),
+    PATHOPHENODB: ("parsers.PathoPhenoDB.src.loadPathoPhenoDB", "PathoPhenoDBLoader"),
     PHAROS: ("parsers.PHAROS.src.loadPHAROS", "PHAROSLoader"),
     PLANT_GOA: ("parsers.GOA.src.loadGOA", "PlantGOALoader"),
     REACTOME: ("parsers.Reactome.src.loadReactome", "ReactomeLoader"),
@@ -124,7 +129,8 @@ SOURCE_DATA_LOADER_CLASS_IMPORTS = {
     YEAST_COSTANZA: ("parsers.yeast.src.loadCostanza2016", "Costanza2016Loader"),
     YEAST_GASCHDIAMIDE: ("parsers.yeast.src.loadYeastGeneExpressionGasch", "YeastGaschDiamideLoader"),
     YEAST_GSE61888: ("parsers.yeast.src.loadYeastNucleosomesGSE61888", "YeastGSE61888Loader"),
-    YEAST_STRING: ("parsers.STRING.src.loadSTRINGDB", "YeastSTRINGDBLoader")
+    YEAST_STRING: ("parsers.STRING.src.loadSTRINGDB", "YeastSTRINGDBLoader"),
+    CDCWONDER: ("parsers.CDCWONDER.src.loadCDCWONDER", "CDCWONDERLoader")
 }
 
 

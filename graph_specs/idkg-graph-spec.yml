@@ -4,16 +4,38 @@ graphs:
     graph_name: Infectious Disease Knowledge Graph
     graph_description: 'A fake description for the testing baseline!'
     graph_url: 'http://localhost/fake_graph_url_for_tesing_baseline'
+    conflation: True
     output_format: neo4j
-    strict_normalization: False
     sources:
       - source_id: DrugCentral
       - source_id: SMACC
+        strict_normalization: False
       - source_id: HeliSMACC
-      #- source_id: HVPPI
+        strict_normalization: False
+      - source_id: HVPPI
+        strict_normalization: False
       - source_id: HVIDB
+        strict_normalization: False
       - source_id: NPASS
+        strict_normalization: False
       - source_id: ClinicalTrialsKP
+      - source_id: HGNC
+      - source_id: PHAROS
+      - source_id: CTD
+      - source_id: Reactome
+      - source_id: STRING-DB-Human
+      - source_id: BINDING-DB
+      - source_id: DrugMechDB
+      - source_id: MonarchKG
+      - source_id: MONDOProps
+      - source_id: OntologicalHierarchy
+        merge_strategy: connected_edge_subset
+      - source_id: BioGRID
+        strict_normalization: False
+      - source_id: PATHOPHENODB
+        strict_normalization: False
+      - source_id: CDCWONDER
+        strict_normalization: False
         # source_version:
         # parsing_version:
         # node_normalization_version: latest

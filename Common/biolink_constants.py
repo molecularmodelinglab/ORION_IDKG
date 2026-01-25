@@ -27,6 +27,11 @@ GENE_FAMILY = 'biolink:GeneFamily'
 GENOMIC_ENTITY = 'biolink:GenomicEntity'
 FOOD = 'biolink:Food'
 MACROMOLECULAR_COMPLEX = 'biolink:MacromolecularComplex'
+MODEL_ORGANISM_PHENOTYPE = 'biolink:ModelOrganismPhenotype'
+ORGANISM_TAXON = 'biolink:OrganismTaxon'
+ONTOLOGY_CLASS = 'biolink:OntologyClass'
+NUCLEIC_ACID_ENTITY = 'biolink:NucleicAcidEntity'
+PROTEIN = 'biolink:Protein'
 
 # properties on nodes
 NODE_ID = 'id'
@@ -212,3 +217,4 @@ BIOLINK_PROPERTIES_THAT_ARE_LISTS = [
 
 # biolink compliant predicates
 SUBCLASS_OF = 'biolink:subclass_of'
+RELATED_TO = 'biolink:related_to'

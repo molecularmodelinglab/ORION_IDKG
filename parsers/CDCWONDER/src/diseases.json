@@ -1,0 +1,682 @@
+{
+  "Anthrax": {
+    "disease_name": "Anthrax",
+    "qualifier": "",
+    "id": "MONDO:0005119"
+  },
+  "Arboviral diseases, Chikungunya virus disease": {
+    "disease_name": "Chikungunya virus disease",
+    "qualifier": "",
+    "id": "MONDO:0017941"
+  },
+  "Arboviral diseases, Eastern equine encephalitis virus disease, Neuroinvasive": {
+    "disease_name": "Eastern equine encephalitis virus disease",
+    "qualifier": "Neuroinvasive",
+    "id": "MONDO:0005736"
+  },
+  "Arboviral diseases, Jamestown Canyon  virus disease, Neuroinvasive": {
+    "disease_name": "Jamestown Canyon  virus disease",
+    "qualifier": "Neuroinvasive",
+    "id": "UMLS:C0276389"
+  },
+  "Arboviral diseases, Jamestown Canyon  virus disease, Non-neuroinvasive": {
+    "disease_name": "Jamestown Canyon  virus disease",
+    "qualifier": "Non-neuroinvasive",
+    "id": "UMLS:C0276389"
+  },
+  "Arboviral diseases, La Crosse  virus disease, Neuroinvasive": {
+    "disease_name": "La Crosse  virus disease",
+    "qualifier": "Neuroinvasive",
+    "id": "MONDO:0019378"
+  },
+  "Arboviral diseases, La Crosse  virus disease, Non-neuroinvasive": {
+    "disease_name": "La Crosse  virus disease",
+    "qualifier": "Non-neuroinvasive",
+    "id": "MONDO:0019378"
+  },
+  "Arboviral diseases, Powassan virus disease, Neuroinvasive": {
+    "disease_name": "Powassan virus disease",
+    "qualifier": "Neuroinvasive",
+    "id": "MONDO:0000276"
+  },
+  "Arboviral diseases, Powassan virus disease, Non-neuroinvasive": {
+    "disease_name": "Powassan virus disease",
+    "qualifier": "Non-neuroinvasive",
+    "id": "MONDO:0000276"
+  },
+  "Arboviral diseases, St. Louis encephalitis virus disease, Neuroinvasive": {
+    "disease_name": "St. Louis encephalitis virus disease",
+    "qualifier": "Neuroinvasive",
+    "id": "MONDO:0005969"
+  },
+  "Arboviral diseases, St. Louis encephalitis virus disease, Non-neuroinvasive": {
+    "disease_name": "St. Louis encephalitis virus disease",
+    "qualifier": "Non-neuroinvasive",
+    "id": "MONDO:0005969"
+  },
+  "Arboviral diseases, West Nile virus disease, Neuroinvasive": {
+    "disease_name": "West Nile virus disease",
+    "qualifier": "Neuroinvasive",
+    "id": "MONDO:0019376"
+  },
+  "Arboviral diseases, West Nile virus disease, Non-neuroinvasive": {
+    "disease_name": "West Nile virus disease",
+    "qualifier": "Non-neuroinvasive",
+    "id": "MONDO:0019376"
+  },
+  "Babesiosis, Confirmed": {
+    "disease_name": "Babesiosis",
+    "qualifier": "Confirmed",
+    "id": "MONDO:0005661"
+  },
+  "Babesiosis, Probable": {
+    "disease_name": "Babesiosis",
+    "qualifier": "Probable",
+    "id": "MONDO:0005661"
+  },
+  "Babesiosis, Total": {
+    "disease_name": "Babesiosis",
+    "qualifier": "Total",
+    "id": "MONDO:0005661"
+  },
+  "Botulism, Foodborne": {
+    "disease_name": "Botulism Foodborne",
+    "qualifier": "",
+    "id": "MONDO:0016453"
+  },
+  "Botulism, Infant": {
+    "disease_name": "Botulism Infant",
+    "qualifier": "",
+    "id": "MONDO:0015804"
+  },
+  "Botulism, Other (wound & unspecified)": {
+    "disease_name": "Botulism",
+    "qualifier": "Other (wound & unspecified)",
+    "id": "MONDO:0005498"
+  },
+  "Botulism, Total": {
+    "disease_name": "Botulism",
+    "qualifier": "Total",
+    "id": "MONDO:0005498"
+  },
+  "Brucellosis": {
+    "disease_name": "Brucellosis",
+    "qualifier": "",
+    "id": "MONDO:0005683"
+  },
+  "Campylobacteriosis": {
+    "disease_name": "Campylobacteriosis",
+    "qualifier": "",
+    "id": "MONDO:0005688"
+  },
+  "Candida auris, clinical": {
+    "disease_name": "Candida auris clinical",
+    "qualifier": "",
+    "id": "UMLS:C4761265"
+  },
+  "Carbapenemase-producing carbapenem-resistant Enterobacteriaceae": {
+    "disease_name": "Carbapenemase-producing carbapenem-resistant Enterobacteriaceae",
+    "qualifier": "",
+    "id": "DOID:50360"
+  },
+  "Chancroid": {
+    "disease_name": "Chancroid",
+    "qualifier": "",
+    "id": "MONDO:0001797"
+  },
+  "Chlamydia trachomatis infection": {
+    "disease_name": "Chlamydia trachomatis infection",
+    "qualifier": "",
+    "id": "MONDO:0005701"
+  },
+  "Cholera": {
+    "disease_name": "Cholera",
+    "qualifier": "",
+    "id": "MONDO:0015766"
+  },
+  "Coccidioidomycosis": {
+    "disease_name": "Coccidioidomycosis",
+    "qualifier": "",
+    "id": "MONDO:0005706"
+  },
+  "Coronavirus Disease 2019 (COVID-19), Confirmed": {
+    "disease_name": "Coronavirus Disease 2019 (COVID-19)",
+    "qualifier": "Confirmed",
+    "id": "MONDO:0100096"
+  },
+  "Coronavirus Disease 2019 (COVID-19), Probable": {
+    "disease_name": "Coronavirus Disease 2019 (COVID-19)",
+    "qualifier": "Probable",
+    "id": "MONDO:0100096"
+  },
+  "Coronavirus Disease 2019 (COVID-19), Total": {
+    "disease_name": "Coronavirus Disease 2019 (COVID-19)",
+    "qualifier": "Total",
+    "id": "MONDO:0100096"
+  },
+  "Cryptosporidiosis, Confirmed": {
+    "disease_name": "Cryptosporidiosis",
+    "qualifier": "Confirmed",
+    "id": "MONDO:0015474"
+  },
+  "Cryptosporidiosis, Probable": {
+    "disease_name": "Cryptosporidiosis",
+    "qualifier": "Probable",
+    "id": "MONDO:0015474"
+  },
+  "Cryptosporidiosis, Total": {
+    "disease_name": "Cryptosporidiosis",
+    "qualifier": "Total",
+    "id": "MONDO:0015474"
+  },
+  "Cyclosporiasis": {
+    "disease_name": "Cyclosporiasis",
+    "qualifier": "",
+    "id": "MONDO:0005725"
+  },
+  "Dengue virus infections, Dengue": {
+    "disease_name": "Dengue",
+    "qualifier": "",
+    "id": "MONDO:0005502"
+  },
+  "Dengue Virus infections": {
+    "disease_name": "Dengue",
+    "qualifier": "",
+    "id": "MONDO:0005502"
+  },
+  "Dengue virus infections, Dengue-like illness": {
+    "disease_name": "Dengue",
+    "qualifier": "Dengue-like illness",
+    "id": "MONDO:0005502"
+  },
+  "Dengue-like illness": {
+    "disease_name": "Dengue",
+    "qualifier": "Dengue-like illness",
+    "id": "MONDO:0005502"
+  },
+  "Dengue virus infections, Severe dengue": {
+    "disease_name": "Severe dengue",
+    "qualifier": "",
+    "id": "MONDO:0000248"
+  },
+  "Severe dengue": {
+    "disease_name": "Severe dengue",
+    "qualifier": "",
+    "id": "MONDO:0000248"
+  },
+  "Diphtheria": {
+    "disease_name": "Diphtheria",
+    "qualifier": "",
+    "id": "MONDO:0005504"
+  },
+  "Ehrlichiosis and Anaplasmosis, Anaplasma phagocytophilum infection": {
+    "disease_name": "Anaplasma phagocytophilum infection",
+    "qualifier": "caused by Anaplasma phagocytophilum",
+    "id": "UMLS:C0483368"
+  },
+  "Ehrlichiosis and Anaplasmosis, Ehrlichia chaffeensis infection": {
+    "disease_name": "Ehrlichia chaffeensis infection",
+    "qualifier": "",
+    "id": "UMLS:C0860037"
+  },
+  "Ehrlichiosis and Anaplasmosis, Ehrlichia ewingii infection": {
+    "disease_name": "Ehrlichia ewingii infection",
+    "qualifier": "",
+    "id": "UMLS:C2711397"
+  },
+  "Ehrlichiosis and Anaplasmosis, Undetermined ehrlichiosis/anaplasmosis": {
+    "disease_name": "Undetermined ehrlichiosis/anaplasmosis",
+    "qualifier": "Undetermined ehrlichiosis/anaplasmosis",
+    "id": "DOID:0050025"
+  },
+  "Giardiasis": {
+    "disease_name": "Giardiasis",
+    "qualifier": "",
+    "id": "MONDO:0001103"
+  },
+  "Gonorrhea": {
+    "disease_name": "Gonorrhea",
+    "qualifier": "",
+    "id": "MONDO:0004277"
+  },
+  "Haemophilus influenzae, invasive disease, Age <5 years, Non-b serotype": {
+    "disease_name": "Invasive Haemophilus influenzae disease",
+    "qualifier": "Age <5 years, Non-b serotype",
+    "id": "UMLS:C1320191"
+  },
+  "Haemophilus influenzae, invasive disease, Age <5 years, Nontypeable": {
+    "disease_name": "Invasive Haemophilus influenzae disease",
+    "qualifier": "Age <5 years, Nontypeable",
+    "id": "UMLS:C1320191"
+  },
+  "Haemophilus influenzae, invasive disease, Age <5 years, Serotype b": {
+    "disease_name": "Invasive Haemophilus influenzae disease",
+    "qualifier": "Age <5 years, Serotype b",
+    "id": "UMLS:C1320191"
+  },
+  "Haemophilus influenzae, invasive disease, Age <5 years, Unknown serotype": {
+    "disease_name": "Invasive Haemophilus influenzae disease",
+    "qualifier": "Age <5 years, Unknown serotype",
+    "id": "UMLS:C1320191"
+  },
+  "Haemophilus influenzae, invasive disease, All ages, all serotypes": {
+    "disease_name": "Invasive Haemophilus influenzae disease",
+    "qualifier": "All ages, all serotypes",
+    "id": "UMLS:C1320191"
+  },
+  "Hansen's disease": {
+    "disease_name": "Hansen's disease",
+    "qualifier": "",
+    "id": "MEDDRA:10019138"
+  },
+  "Hantavirus infection, non-hantavirus pulmonary syndrome": {
+    "disease_name": "Hantavirus infection",
+    "qualifier": "non-hantavirus pulmonary syndrome",
+    "id": "MONDO:0005780"
+  },
+  "Hantavirus pulmonary syndrome": {
+    "disease_name": "Hantavirus pulmonary syndrome",
+    "qualifier": "",
+    "id": "MONDO:0017879"
+  },
+  "Hemolytic uremic syndrome post-diarrheal": {
+    "disease_name": "Hemolytic uremic syndrome post-diarrheal",
+    "qualifier": "",
+    "id": "MONDO:0001549"
+  },
+  "Hepatitis, A": {
+    "disease_name": "Hepatitis A",
+    "qualifier": "",
+    "id": "DOID:12549"
+  },
+  "Hepatitis, B, acute": {
+    "disease_name": "Hepatitis B",
+    "qualifier": "acute",
+    "id": "DOID:2043"
+  },
+  "Hepatitis, B, perinatal infection": {
+    "disease_name": "Hepatitis B",
+    "qualifier": "perinatal infection",
+    "id": "DOID:2043"
+  },
+  "Hepatitis, C, acute": {
+    "disease_name": "Hepatitis C",
+    "qualifier": "acute",
+    "id": "MONDO:0005231"
+  },
+  "Hepatitis, C, acute, Confirmed": {
+    "disease_name": "Hepatitis C",
+    "qualifier": "acute, Confirmed",
+    "id": "MONDO:0005231"
+  },
+  "Hepatitis, C, acute, Probable": {
+    "disease_name": "Hepatitis C",
+    "qualifier": "acute, Probable",
+    "id": "MONDO:0005231"
+  },
+  "Hepatitis, C, perinatal infection": {
+    "disease_name": "Hepatitis C",
+    "qualifier": "perinatal infection",
+    "id": "MONDO:0005231"
+  },
+  "Human immunodeficiency virus diagnoses": {
+    "disease_name": "Human immunodeficiency virus diagnoses",
+    "qualifier": "",
+    "id": "MONDO:0005109"
+  },
+  "Influenza-associated pediatric mortality": {
+    "disease_name": "Influenza-associated pediatric mortality",
+    "qualifier": "Pediatric mortality",
+    "id": "DOID:8469"
+  },
+  "Invasive pneumococcal disease, Age <5 years": {
+    "disease_name": "Pneumococcal disease",
+    "qualifier": "Invasive, Age <5 years",
+    "id": "MONDO:0005114"
+  },
+  "Invasive pneumococcal disease, Age <5 years, Confirmed": {
+    "disease_name": "Pneumococcal disease",
+    "qualifier": "Invasive, Age <5 years, Confirmed",
+    "id": "MONDO:0005114"
+  },
+  "Invasive pneumococcal disease, Age <5 years, Probable": {
+    "disease_name": "Pneumococcal disease",
+    "qualifier": "Invasive, Age <5 years, Probable",
+    "id": "MONDO:0005114"
+  },
+  "Invasive pneumococcal disease, All ages": {
+    "disease_name": "Pneumococcal disease",
+    "qualifier": "Invasive,  All ages",
+    "id": "MONDO:0005114"
+  },
+  "Invasive pneumococcal disease, All ages, Confirmed": {
+    "disease_name": "Pneumococcal disease",
+    "qualifier": "Invasive, All ages, Confirmed",
+    "id": "MONDO:0005114"
+  },
+  "Invasive pneumococcal disease, All ages, Probable": {
+    "disease_name": "Pneumococcal disease",
+    "qualifier": "Invasive, All ages, Probable",
+    "id": "MONDO:0005114"
+  },
+  "Legionellosis": {
+    "disease_name": "Legionellosis",
+    "qualifier": "",
+    "id": "MONDO:0005825"
+  },
+  "Leptospirosis": {
+    "disease_name": "Leptospirosis",
+    "qualifier": "",
+    "id": "MONDO:0005825"
+  },
+  "Listeriosis, Confirmed": {
+    "disease_name": "Listeriosis",
+    "qualifier": "Confirmed",
+    "id": "MONDO:0005828"
+  },
+  "Listeriosis, Probable": {
+    "disease_name": "Listeriosis",
+    "qualifier": "Probable",
+    "id": "MONDO:0005828"
+  },
+  "Listeriosis, Total": {
+    "disease_name": "Listeriosis",
+    "qualifier": "Total",
+    "id": "MONDO:0005828"
+  },
+  "Lyme disease, Confirmed": {
+    "disease_name": "Lyme disease",
+    "qualifier": "Confirmed",
+    "id": "MONDO:0019632"
+  },
+  "Lyme disease, Probable": {
+    "disease_name": "Lyme disease",
+    "qualifier": "Probable",
+    "id": "MONDO:0019632"
+  },
+  "Lyme disease, Total": {
+    "disease_name": "Lyme disease",
+    "qualifier": "Total",
+    "id": "MONDO:0019632"
+  },
+  "Malaria": {
+    "disease_name": "Malaria",
+    "qualifier": "",
+    "id": "MONDO:0005136"
+  },
+  "Measles, Imported": {
+    "disease_name": "Measles",
+    "qualifier": "Imported",
+    "id": "DOID:8622"
+  },
+  "Measles, Indigenous": {
+    "disease_name": "Measles",
+    "qualifier": "Indigenous",
+    "id": "DOID:8622"
+  },
+  "Measles, Total": {
+    "disease_name": "Measles",
+    "qualifier": "Total",
+    "id": "DOID:8622"
+  },
+  "Meningococcal disease, All serogroups": {
+    "disease_name": "Meningococcal disease",
+    "qualifier": "All serogroups",
+    "id": "DOID:0080176"
+  },
+  "Meningococcal disease, Other serogroups": {
+    "disease_name": "Meningococcal disease",
+    "qualifier": "Other serogroups",
+    "id": "DOID:0080176"
+  },
+  "Meningococcal disease, Serogroup B": {
+    "disease_name": "Meningococcal disease",
+    "qualifier": "Serogroup B",
+    "id": "DOID:0080176"
+  },
+  "Meningococcal disease, Serogroups ACWY": {
+    "disease_name": "Meningococcal disease",
+    "qualifier": "Serogroups ACWY",
+    "id": "DOID:0080176"
+  },
+  "Meningococcal disease, Unknown serogroup": {
+    "disease_name": "Meningococcal disease",
+    "qualifier": "Unknown serogroup",
+    "id": "DOID:0080176"
+  },
+  "Mpox": {
+    "disease_name": "Mpox",
+    "qualifier": "",
+    "id": "DOID:3292"
+  },
+  "Mumps": {
+    "disease_name": "Mumps",
+    "qualifier": "",
+    "id": "MONDO:0000989"
+  },
+  "Novel Influenza A virus infections": {
+    "disease_name": "Novel Influenza A virus infections",
+    "qualifier": "",
+    "id": "UMLS:C3264383"
+  },
+  "Paratyphoid fever": {
+    "disease_name": "Paratyphoid fever",
+    "qualifier": "",
+    "id": "MONDO:0018626"
+  },
+  "Pertussis": {
+    "disease_name": "Pertussis",
+    "qualifier": "",
+    "id": "MONDO:0005077"
+  },
+  "Plague": {
+    "disease_name": "Plague",
+    "qualifier": "",
+    "id": "DOID:3482"
+  },
+  "Poliomyelitis, paralytic": {
+    "disease_name": "Paralytic poliomyelitis",
+    "qualifier": "",
+    "id": "DOID:0050515"
+  },
+  "Psittacosis": {
+    "disease_name": "Psittacosis",
+    "qualifier": "",
+    "id": "MEDDRA:10037151"
+  },
+  "Q fever, Acute": {
+    "disease_name": "Q fever",
+    "qualifier": "Acute",
+    "id": "MONDO:0019186"
+  },
+  "Q fever, Chronic": {
+    "disease_name": "Q fever",
+    "qualifier": "Chronic",
+    "id": "MONDO:0019186"
+  },
+  "Q fever, Total": {
+    "disease_name": "Q fever",
+    "qualifier": "Total",
+    "id": "MONDO:0019186"
+  },
+  "Rabies, Animal": {
+    "disease_name": "Rabies",
+    "qualifier": "Animal",
+    "id": "MONDO:0019173"
+  },
+  "Rabies, Human": {
+    "disease_name": "Rabies",
+    "qualifier": "Human",
+    "id": "MONDO:0019173"
+  },
+  "Rubella": {
+    "disease_name": "Rubella",
+    "qualifier": "",
+    "id": "DOID:8781"
+  },
+  "Rubella, congenital syndrome": {
+    "disease_name": "Rubella congenital syndrome",
+    "qualifier": "",
+    "id": "MEDDRA:10083496"
+  },
+  "Salmonella Paratyphi infection": {
+    "disease_name": "Salmonella Paratyphi infection",
+    "qualifier": "",
+    "id": "MEDDRA:10039441"
+  },
+  "Salmonella Typhi infection": {
+    "disease_name": "Salmonella Typhi infection",
+    "qualifier": "",
+    "id": "MEDDRA:10039446"
+  },
+  "Salmonellosis": {
+    "disease_name": "Salmonellosis",
+    "qualifier": "",
+    "id": "MONDO:0000827"
+  },
+  "Salmonellosis (excluding S. Typhi infection and S. Paratyphi infection)": {
+    "disease_name": "Salmonellosis",
+    "qualifier": "excluding S. Typhi infection and S. Paratyphi infection",
+    "id": "MONDO:0000827"
+  },
+  "Salmonellosis (excluding paratyphoid fever and typhoid fever)": {
+    "disease_name": "Salmonellosis",
+    "qualifier": "excluding paratyphoid fever and typhoid fever",
+    "id": "MONDO:0000827"
+  },
+  "Shiga toxin-producing Escherichia coli (STEC)": {
+    "disease_name": "Shiga toxin-producing Escherichia coli (STEC)",
+    "qualifier": "",
+    "id": "MEDDRA:10083587"
+  },
+  "Shigellosis": {
+    "disease_name": "Shigellosis",
+    "qualifier": "",
+    "id": "MONDO:0019345"
+  },
+  "Spotted fever rickettsiosis, Confirmed": {
+    "disease_name": "Spotted fever rickettsiosis",
+    "qualifier": "Confirmed",
+    "id": "MONDO:0001195"
+  },
+  "Spotted fever rickettsiosis, Probable": {
+    "disease_name": "Spotted fever rickettsiosis",
+    "qualifier": "Probable",
+    "id": "MONDO:0001195"
+  },
+  "Spotted fever rickettsiosis, Total": {
+    "disease_name": "Spotted fever rickettsiosis",
+    "qualifier": "Total",
+    "id": "MONDO:0001195"
+  },
+  "Streptococcal toxic shock syndrome": {
+    "disease_name": "Toxic shock syndrome",
+    "qualifier": "Streptococcal",
+    "id": "MONDO:0001881"
+  },
+  "Syphilis, Congenital": {
+    "disease_name": "Congenital Syphilis ",
+    "qualifier": "",
+    "id": "MONDO:0005714"
+  },
+  "Syphilis, Primary and secondary": {
+    "disease_name": "Syphilis",
+    "qualifier": "Primary and secondary",
+    "id": "MONDO:0005976"
+  },
+  "Syphilis, Total, all stages": {
+    "disease_name": "Syphilis",
+    "qualifier": "Total, all stages",
+    "id": "MONDO:0005976"
+  },
+  "Tetanus": {
+    "disease_name": "Tetanus",
+    "qualifier": "",
+    "id": "MONDO:0005526"
+  },
+  "Toxic shock syndrome (other than Streptococcal)": {
+    "disease_name": "Toxic shock syndrome",
+    "qualifier": "other than Streptococcal",
+    "id": "MONDO:0001881"
+  },
+  "Trichinellosis": {
+    "disease_name": "Trichinellosis",
+    "qualifier": "",
+    "id": "MONDO:0019444"
+  },
+  "Tuberculosis": {
+    "disease_name": "Tuberculosis",
+    "qualifier": "",
+    "id": "MONDO:0018076"
+  },
+  "Tularemia": {
+    "disease_name": "Tularemia",
+    "qualifier": "",
+    "id": "MONDO:0018077"
+  },
+  "Typhoid fever": {
+    "disease_name": "Typhoid fever",
+    "qualifier": "",
+    "id": "MONDO:0005619"
+  },
+  "Vancomycin-intermediate Staphylococcus aureus": {
+    "disease_name": "Staphylococcus aureus infection",
+    "qualifier": "Vancomycin-intermediate ",
+    "id": "MONDO:0005545"
+  },
+  "Vancomycin-resistant Staphylococcus aureus": {
+    "disease_name": "Staphylococcus aureus infection",
+    "qualifier": "Vancomycin-resistant ",
+    "id": "MONDO:0005545"
+  },
+  "Varicella morbidity": {
+    "disease_name": "Varicella",
+    "qualifier": "",
+    "id": "MONDO:0005700"
+  },
+  "Varicella mortality": {
+    "disease_name": "Varicella",
+    "qualifier": "mortality",
+    "id": "MONDO:0005700"
+  },
+  "Vibriosis, Confirmed": {
+    "disease_name": "Vibriosis",
+    "qualifier": "Confirmed",
+    "id": "MONDO:0007014"
+  },
+  "Vibriosis, Probable": {
+    "disease_name": "Vibriosis",
+    "qualifier": "Probable",
+    "id": "MONDO:0007014"
+  },
+  "Vibriosis, Total": {
+    "disease_name": "Vibriosis",
+    "qualifier": "Total",
+    "id": "MONDO:0007014"
+  },
+  "Yellow fever": {
+    "disease_name": "Yellow fever",
+    "qualifier": "",
+    "id": "MONDO:0020502"
+  },
+  "Zika virus, Zika virus disease, congenital": {
+    "disease_name": "Zika virus congenital syndrome",
+    "qualifier": "disease",
+    "id": "DOID:0080180"
+  },
+  "Zika virus, Zika virus disease, non-congenital": {
+    "disease_name": "Zika virus disease",
+    "qualifier": "disease, non-congenital",
+    "id": "MONDO:0018661"
+  },
+  "Zika virus, Zika virus infection, congenital": {
+    "disease_name": "Zika virus congenital syndrome",
+    "qualifier": "infection",
+    "id": "DOID:0080180"
+  },
+  "Zika virus, Zika virus infection, non-congenital": {
+    "disease_name": "Zika virus infection",
+    "qualifier": "infection, non-congenital",
+    "id": "MONDO:0018661"
+  }
+}
